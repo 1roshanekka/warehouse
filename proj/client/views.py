@@ -4,10 +4,10 @@ from django.shortcuts import render
 # Create your views here.
 
 def index(request):
-    params = {'name': 'client index'}
+    # params = {'name': 'client index'}
 
     # return HttpResponse("this is index page of warehouse / client app")
-    return render(request, 'client/index.html', params)
+    return render(request, 'client/index.html')
 
 # def index(request):
 #     params = {'name': 'manager index'}
