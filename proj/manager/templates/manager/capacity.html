@@ -1,0 +1,57 @@
+{% load static %}
+
+
+<!-- capacity.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Capacity Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Capacity Report</h1>
+
+    <h3>Leftover Capacity: {{ leftover_capacity }}</h3>
+    <h3>Product Capacity: {{ total_products_quantity }}</h3>
+    <h3>Warehouse Capacity: {{ total_warehouse_capacity }}</h3>
+
+    
+    <canvas id="pieChart" width="400" height="400">
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var ctx = document.getElementById('pieChart').getContext('2d');
+                var total_products_quantity = JSON.parse("{{ total_products_quantity|escapejs }}");
+                var leftover_capacity = JSON.parse("{{ leftover_capacity|escapejs }}");
+    
+                var data = [total_products_quantity, leftover_capacity];
+                var labels = ['Used Capacity', 'Leftover Capacity'];
+                var colors = ['#FF6384', '#36A2EB'];
+    
+                var chart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: data,
+                            backgroundColor: colors
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Capacity Report'
+                        }
+                    }
+                });
+            });
+        </script>
+
+    </canvas>
+    
+</body>
+</html>

@@ -10,9 +10,17 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('', views.index, name="managerHome"),
+    path('', views.index, name="index"),
+
+    # path('login/', views.login, name="managerLogin"),
+    path('dashboard/', views.dashboard, name="dashboard"),
+    # path('capacity/', views.capacity, name='capacity'),
+
+
+    path('tables/', views.tables, name="tables"),
     # path('about/', views.about, name="about"),
     # path('services/', views.services, name="services"),
     # path('contact/', views.contact, name="contact"),
 
 ]
+
