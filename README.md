@@ -23,6 +23,8 @@ python ./proj/manage.py
 ```
 
 ---
+documentations are provided in wiki of this repo
+---
 
 #### **Deployed on Render** : https://warehouse-tbs.onrender.com/
 
