@@ -24,7 +24,7 @@ python ./proj/manage.py
 
 ---
 
-documentations are provided in wiki of this repo
+documentations are provided in wiki of this repo 😉
 
 ---
 
