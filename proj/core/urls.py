@@ -28,9 +28,9 @@ urlpatterns = [
     # app
     path('manager/', include('manager.urls')), #contact urls of managers
     #app
-    path('client/', include('client.urls')),    #contact urls of client
+    path('', include('client.urls')),    #contact urls of client
 
-    path('', views.index, name="index"),
+    # path('', views.index, name="index"),
 
     # path('', include('dashboard.url'), name="dashboard"),
 

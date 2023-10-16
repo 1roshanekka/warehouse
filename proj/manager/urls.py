@@ -22,5 +22,8 @@ urlpatterns = [
     # path('services/', views.services, name="services"),
     # path('contact/', views.contact, name="contact"),
 
+    # ... (other patterns)
+    path('products/<int:product_id>/edit/', views.edit_product, name='edit_product'),
 ]
+
 

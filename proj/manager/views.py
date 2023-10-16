@@ -1,19 +1,16 @@
+from datetime import date
+
+from django.http import JsonResponse
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # to import models from models.py
-from .models import Product, Warehouse
+from .models import Product
+from .models import Warehouse
 
 from django.db.models import Sum
 from django.urls import reverse
 
-# Create your views here.
-
-# def index(request):
-#     params = {'name': 'manager index'}
-
-#     # return HttpResponse("this is index page of warehouse / manager app")
-#     return render(request, 'manager/index.html', params)
 def index(request):
     total_products_quantity = request.GET.get('total_products_quantity')
     total_warehouse_capacity = request.GET.get('total_warehouse_capacity')
@@ -56,18 +53,36 @@ def dashboard(request):
 
     # Determine if capacity is full
     is_max_capacity_reached = percentage_left <= 10  # Capacity is considered full if 10% or less is left
-    
+
+    current_date = date.today()
+
+    # Query for current stock
+    current_stock = Product.objects.filter(arrival_date__lte=current_date, dispatch_date__gte=current_date)
+
+    # Query for upcoming stock
+    upcoming_stock = Product.objects.filter(arrival_date__gt=current_date)
+
+    # Query for current stock and get the sum of quantities
+    current_stock_sum = Product.objects.filter(arrival_date__lte=current_date, dispatch_date__gte=current_date).aggregate(total_quantity=Sum('quantity'))['total_quantity'] or 0
+
+    # Query for upcoming stock and get the sum of quantities
+    upcoming_stock_sum = Product.objects.filter(arrival_date__gt=current_date).aggregate(total_quantity=Sum('quantity'))['total_quantity'] or 0
+
     context = {
         'total_products_quantity': total_products_quantity,
         'total_warehouse_capacity': total_warehouse_capacity,
         'leftover_capacity': leftover_capacity,
         'is_low_inventory': is_low_inventory,
         'is_max_capacity_reached': is_max_capacity_reached,
+        'current_stock': current_stock,
+        'upcoming_stock': upcoming_stock,
+        'current_stock_sum': current_stock_sum,
+        'upcoming_stock_sum': upcoming_stock_sum,
     }
 
     print(context)
 
-    index = reverse('dashboard') + f'?total_products_quantity={total_products_quantity}&total_warehouse_capacity={total_warehouse_capacity}&leftover_capacity={leftover_capacity}'
+    index = reverse('dashboard') + f'?total_products_quantity={total_products_quantity}&total_warehouse_capacity={total_warehouse_capacity}&leftover_capacity={leftover_capacity}&current_stock={current_stock}&upcoming_stock={upcoming_stock}&upcoming_stock_sum={upcoming_stock_sum}&current_stock_sum={current_stock_sum}'
     return render(request, 'manager/index.html', context)
    
 # def index(request):
@@ -98,3 +113,23 @@ def tables(request):
     return render(request, 'manager/tables-data.html', context)
 
     return render(request, 'manager/tables-data.html', )
+
+from django.shortcuts import render, get_object_or_404
+
+def edit_product(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+
+    if request.method == 'POST':
+        # Update product data
+        product.name = request.POST.get('name')
+        product.category = request.POST.get('category')
+        product.SKU = request.POST.get('SKU')
+        product.quantity = request.POST.get('quantity')
+        product.arrival_date = request.POST.get('arrival_date')
+        product.dispatch_date = request.POST.get('dispatch_date')
+        product.save()
+
+        return redirect('product_detail', product_id=product_id)  # Redirect to product detail view
+
+    context = {'product': product}
+    return render(request, 'manager/edit-form.html', context)

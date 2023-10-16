@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'manager.apps.ManagerConfig', #goes into apps.py of manager, ManagerConfig relates to model class Products defined in models.py
-
+    'client.apps.ClientConfig',
 
     'django.contrib.admin', #superuser admin
     'django.contrib.auth',
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #created apps
-    'client',
+    
     # 'manager',
     
 ]
