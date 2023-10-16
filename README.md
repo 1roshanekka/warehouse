@@ -13,7 +13,7 @@ The docker image is [available on Docker Hub](https://hub.docker.com/r/1roshanek
 
 **To run, use command**
 ```
-docker run -d -p 8090:8090 1roshanekka/warehouse-tbs:latest
+docker run -d -p 8080:8080 1roshanekka/warehouse-tbs:latest
 ```
 ---
 
