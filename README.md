@@ -28,6 +28,6 @@ documentations are provided in wiki of this repo 😉
 
 ---
 
-#### **Deployed on Render** : https://warehouse-tbs.onrender.com/
+#### **(To-be) Deployed on Render** : https://warehouse-tbs.onrender.com/
 
 by Roshan Ekka, IIT Kharagpur
