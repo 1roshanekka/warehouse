@@ -251,3 +251,7 @@
   });
 
 })()
+function showSubmissionAlert() {
+  alert("Form submitted successfully!");
+  return false; // Prevent the default form submission behavior
+}

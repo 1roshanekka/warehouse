@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+admin.site.site_header = "Admin - WareHouse Management"
+admin.site.site_title = "Manager Portal"
+admin.site.index_title = "Manager Portal"
+
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -25,15 +29,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # app
+    # manager app
     path('manager/', include('manager.urls')), #contact urls of managers
-    #app
-    path('', include('client.urls')),    #contact urls of client
 
-    # path('', views.index, name="index"),
-
-    # path('', include('dashboard.url'), name="dashboard"),
-
+    # client app
+    path('', include('client.urls')),    #contact urls of client app 
     
     #for uploading media
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

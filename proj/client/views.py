@@ -1,31 +1,33 @@
+from datetime import datetime
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-from .models import ContactForm
+from client.models import ContactForm
+
 
 # Create your views here.
 
 def index(request):
     # params = {'name': 'client index'}
-
     # return HttpResponse("this is index page of warehouse / client app")
+
     return render(request, 'client/index.html')
 
-# def index(request):
-#     params = {'name': 'manager index'}
-
-#     # return HttpResponse("this is index page of warehouse")
-#     return render(request, 'index.html', params)
-
+# submit from index page
 def submit_form(request):
     if request.method == 'POST':
         print(request)
-        name = request.POST.get('name', '')
-        email = request.POST.get('email', '')
-        subject = request.POST.get('subject', '')
-        message = request.POST.get('message', '')
-        print(name,email,subject,message)
+        submitted_name = request.POST.get('name') #name from html
+        submitted_email = request.POST.get('email')
+        submitted_subject = request.POST.get('subject')
+        submitted_message = request.POST.get('message')
 
-    return render(request, 'index.html', name,email,subject,message)
+        # below is to be stored in name section of model-ContactForm
+        details = ContactForm(name=submitted_name, email=submitted_email, subject=submitted_subject, message=submitted_message) #not required to submit date as default is current date time
+
+        details.save()  #commit
+        print(submitted_name,submitted_email,submitted_subject,submitted_message)
+
+    return redirect(index) # after submit go back to index page of client
 # def submit_form(request):
 #     if form.is_valid():
 #             name = form.cleaned_data['name']

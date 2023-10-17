@@ -133,3 +133,21 @@ def edit_product(request, product_id):
 
     context = {'product': product}
     return render(request, 'manager/edit-form.html', context)
+from django.http import JsonResponse
+
+def get_stock_data(request):
+    # Query your Django models to get the necessary data
+    # Assuming you have the data in two lists: current_stock and upcoming_stock
+    current_stock = [10, 15, 8, 20, 12]
+    upcoming_stock = [5, 8, 12, 6, 10]
+    dates = ["Date 1", "Date 2", "Date 3", "Date 4", "Date 5"]
+
+    data = {
+        'series': [
+            {'name': 'Current Stock', 'data': current_stock},
+            {'name': 'Upcoming Stock', 'data': upcoming_stock}
+        ],
+        'dates': dates
+    }
+
+    return JsonResponse(data)

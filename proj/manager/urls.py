@@ -24,6 +24,7 @@ urlpatterns = [
 
     # ... (other patterns)
     path('products/<int:product_id>/edit/', views.edit_product, name='edit_product'),
+    path('manager/get_stock_data/', views.get_stock_data, name='get_stock_data'),
 ]
 
 

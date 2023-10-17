@@ -14,11 +14,6 @@ urlpatterns = [
 
     # in-> views.{function defined in views.py}
 
-    path('', views.index, name="clientHome"),
-    path('submit_form/', views.submit_form, name='submit_form'),
+    path('', views.index, name="client-Home"),
+    path('submit_form/', views.submit_form, name='client-submit_form'),
 ]
-
-    # path('about/', views.about, name="about"),
-    # path('services/', views.services, name="services"),
-    # path('contact/', views.contact, name="contact"),
-
