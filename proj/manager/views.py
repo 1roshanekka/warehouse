@@ -109,10 +109,15 @@ def dashboard(request):
 
 def tables(request):    
     products = Product.objects.all()
-    context = {'products': products}
-    return render(request, 'manager/tables-data.html', context)
+    # context = {'products': products}
+    return render(request, 'manager/tables-data.html', {'Product': Product})
 
     return render(request, 'manager/tables-data.html', )
+
+def addProducts(request): 
+
+    return render(request, 'manager/forms-elements.html')
+
 
 from django.shortcuts import render, get_object_or_404
 
@@ -151,3 +156,33 @@ def get_stock_data(request):
     }
 
     return JsonResponse(data)
+
+def submit_product_form(request):
+    if request.method == 'POST':
+        # Get form data from POST request
+        products_status = request.POST.get('products_status')
+        name = request.POST.get('name')
+        category = request.POST.get('category')
+        SKU = request.POST.get('SKU')
+        quantity = request.POST.get('quantity')
+        arrival_date = request.POST.get('arrival_date')
+        dispatch_date = request.POST.get('dispatch_date')
+
+        # Create a new Product instance
+        product = Product(
+            products_status=products_status,
+            name=name,
+            category=category,
+            SKU=SKU,
+            quantity=quantity,
+            arrival_date=arrival_date,
+            dispatch_date=dispatch_date
+        )
+        product.save()
+
+        # Optionally, you can add a success message or redirect to a different page
+        # For example, you can use Django's messages framework to display a success message
+
+        return render(request, 'success.html')  # Create a success.html template
+
+    return render(request, 'product_form.html')  # Render the form template

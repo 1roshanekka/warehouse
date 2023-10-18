@@ -18,6 +18,8 @@ urlpatterns = [
 
 
     path('tables/', views.tables, name="tables"),
+    path('addProducts/', views.addProducts, name="addProducts"),
+    path('submit_product_form/', views.submit_product_form, name='submit_product_form'),
     # path('about/', views.about, name="about"),
     # path('services/', views.services, name="services"),
     # path('contact/', views.contact, name="contact"),
